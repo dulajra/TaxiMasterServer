@@ -9,7 +9,7 @@ Execute the below code in order to install the dependencies. If you have compose
 ```sh
 $ cd taximaster-server
 $ php composer.phar update
-$ php composer.phar intall
+$ php composer.phar install
 $ php composer.phar dump-autoload
 ```
 
