@@ -32,13 +32,13 @@
                 <ul class="nav navbar-nav">
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="/dist/img/avatar2.png" class="user-image" alt="User Image">
+                            <img src="{{ Auth::user()->image==null? '/dist/img/avatar.png' : Auth::user()->image}}" class="user-image" alt="User Image">
                             <span class="hidden-xs">{{ Auth::user()->firstName . ' ' . Auth::user() ->lastName}}</span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- User image -->
                             <li class="user-header">
-                                <img src="/dist/img/avatar2.png" class="img-circle" alt="User Image">
+                                <img src="{{ Auth::user()->image==null? '/dist/img/avatar.png' : Auth::user()->image}}" class="img-circle" alt="User Image">
 
                                 <p>
                                     {{ Auth::user()->firstName . ' ' . Auth::user() ->lastName}}
@@ -47,7 +47,7 @@
                             </li>
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a href="/profile" class="btn btn-default btn-flat">Profile</a>
+                                    <a href="/accounts/view/{{ \Illuminate\Support\Facades\Auth::user()->id }}" class="btn btn-default btn-flat">Profile</a>
                                 </div>
                                 <div class="pull-right">
                                     <a href="/logout" class="btn btn-default btn-flat">Sign out</a>

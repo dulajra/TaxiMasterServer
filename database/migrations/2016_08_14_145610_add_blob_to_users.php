@@ -13,7 +13,7 @@ class AddBlobToUsers extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->binary('image')->nullable();
+            $table->string('image')->nullable();
         });
     }
 
@@ -25,7 +25,7 @@ class AddBlobToUsers extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            //
+            $table->dropColumn('image');
         });
     }
 }

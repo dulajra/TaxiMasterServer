@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Faker\Provider\Image;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -11,6 +12,7 @@ use App\TaxiDriver;
 use App\Taxi;
 use App\DriverUpdate;
 use Hash;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\MessageBag;
 
 class UserController extends Controller
@@ -42,10 +44,18 @@ class UserController extends Controller
         $user->firstName = $request->firstName;
         $user->lastName = $request->lastName;
         $user->phone = $request->phone;
+        $name = $user->username;
+        $file = $request->file('image');
+        if (!empty($file)) {
+            $file->move(public_path('/img/users/'), $name . '.' . $file->getClientOriginalExtension());
+            $user->image = '/img/users/' . $name . '.' . $file->getClientOriginalExtension();
+        }
         $result = $user->save();
 
         if ($result) {
-            return redirect('/accounts/view');
+//            return redirect('/accounts/view');
+
+            return back();
         } else {
             $errors = new MessageBag(['msg' => 'Username or password is incorrect']);
             return back()->withErrors($errors);
