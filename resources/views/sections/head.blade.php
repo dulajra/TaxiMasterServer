@@ -60,5 +60,9 @@
             border-radius: 0px;
             -moz-border-radius: 0px;
         }
+
+        ::-webkit-scrollbar {
+            display: none;
+        }
     </style>
 </head>

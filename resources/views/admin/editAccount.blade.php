@@ -46,7 +46,7 @@
             <div class="box-header with-border">
                 <h3 class="box-title">Account Details</h3>
             </div>
-            <form id="edit_account_form" action="/accounts/update/{{$user->username}}" method="POST">
+            <form id="edit_account_form" action="/accounts/update/{{$user->username}}" method="POST" enctype="multipart/form-data">
                 <fieldset>
                     {{csrf_field()}}
                     <div class="box-body">
@@ -56,31 +56,32 @@
                                    class="form-control input-md" readonly='true' value="{{$user->username}}">
                         </div>
 
-                        <!-- Text input-->
                         <div class="form-group">
                             <label class="control-label" for="firstname">First name</label>
                             <input id="firstname" name="firstName" type="text" placeholder="First name"
                                    class="form-control input-md" value="{{$user->firstName}}" required>
                         </div>
 
-                        <!-- Text input-->
                         <div class="form-group">
                             <label class="control-label" for="lastname">Last name</label>
                             <input id="lastname" name="lastName" type="text" placeholder="Last name"
                                    class="form-control input-md" value="{{$user->lastName}}" required>
                         </div>
 
-                        <!-- Text input-->
                         <div class="form-group">
                             <label class="control-label" for="phone">Mobile phone</label>
                             <input id="phone" name="phone" type="text" placeholder="Enter a mobile phone number"
                                    class="form-control input-md" value="{{$user->phone}}" required>
                         </div>
+
+                        <div class="form-group">
+                            <label for="image">Select an image</label>
+                            <input type="file" id="image" name="image" accept="image/*">
+
+                            {{--<p class="help-block">Image of size < 64KB</p>--}}
+                        </div>
                     </div>
-                    <!-- Text input-->
 
-
-                    <!-- Button (Double) -->
                     <div class="box-footer">
                         <div class="form-group">
                             <label class="control-label" for="button1id"></label>

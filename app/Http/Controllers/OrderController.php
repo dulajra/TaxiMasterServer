@@ -284,7 +284,7 @@ class OrderController extends Controller
             array_push($idNameList, array('id'=>$driver->id, 'name'=>$driver->user->fullName()));
         }
         $data['idNameList'] = $idNameList;
-        return view('neworder', compact('data'));
+        return view('operator.newOrder', compact('data'));
     }
     
     public function getOrderState(Request $request){

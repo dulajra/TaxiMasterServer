@@ -125,9 +125,9 @@
                 zoomControlOptions: {
                     position: google.maps.ControlPosition.RIGHT_TOP
                 },
-                fullscreenControl: true
+                fullscreenControl: true,
+                scrollwheel:false
             });
-
             setMarkers();
         }
     </script>

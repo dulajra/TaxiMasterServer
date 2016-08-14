@@ -64,11 +64,15 @@
                                    class="form-control input-md" disabled value="{{$user->lastName}}">
                         </div>
 
-                        <!-- Text input-->
                         <div class="form-group">
                             <label class="control-label" for="phone">Mobile phone</label>
                             <input id="phone" name="phone" type="text" placeholder="Enter a mobile phone number"
                                    class="form-control input-md" disabled value="{{$user->phone}}">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="control-label" for="phone">Image</label>
+                            <img class="img-responsive" style="display: block;margin: auto;" src="{{ $user->image or '/dist/img/avatar.png' }}" alt="">
                         </div>
                     </div>
 
