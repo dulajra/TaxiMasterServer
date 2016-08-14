@@ -74,7 +74,7 @@ class TaxiController extends Controller
             array_push($driverIdNameList, array('driverId'=>$driver->id, 'driverName'=>$driver->user->fullName()));
         }
         $data= array('taxi'=>$taxi, 'driverList'=>$driverIdNameList);
-        return view('edittaxi', compact('data'));
+        return view('admin.editTaxi', compact('data'));
     }
 
     public function updateTaxi(Request $request){
