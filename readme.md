@@ -22,7 +22,7 @@ $ php artisan config:cache
 ## Database Migration and Seeding
 Execute the belo commands in order to migrate and seed data
 ```sh
-$ php artisan migrade --seed
+$ php artisan migrate --seed
 ```
 
 ## Starting the server (Development)
