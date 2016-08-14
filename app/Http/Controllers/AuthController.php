@@ -14,7 +14,8 @@ class AuthController extends Controller
      * @param Request $request
      * @return success = [0 - success, 1 - incorrect password, 2 - username not exists, -1  = error]
      */
-    public function loginDriver(Request $request){
+    public function loginDriver(Request $request)
+    {
         $response = array();
 
         if (Auth::attempt(['username' => $request->username, 'password' => $request->password, 'userLevelId' => 2])) {
@@ -28,8 +29,32 @@ class AuthController extends Controller
 
             $response['success'] = 0;
             $response['driver'] = $user;
+        } else {
+            $response['success'] = 1;
         }
-        else{
+        return $response;
+    }
+
+    public function loginCustomer(Request $request)
+    {
+        $response = array();
+
+        if (Auth::attempt(['phone' => $request->phone, 'password' => $request->password, 'userLevelId' => 4])) {
+            $user = Auth::user();
+            unset($user->password);
+            unset($user->userType);
+            unset($user->userLevelId);
+            unset($user->isActive);
+            unset($user->username);
+            unset($user->remember_token);
+
+//            $user = $user->taxiDriver;
+//            $taxiDriver->oneSignalUserId = $request->oneSignalUserId;
+//            $taxiDriver->save();
+
+            $response['success'] = 0;
+            $response['customer'] = $user;
+        } else {
             $response['success'] = 1;
         }
         return $response;
@@ -43,8 +68,7 @@ class AuthController extends Controller
     {
         if (Auth::attempt(['username' => $request->username, 'password' => $request->password, 'userLevelId' => 1]) || Auth::attempt(['username' => $request->username, 'password' => $request->password, 'userLevelId' => 3])) {
             return redirect()->intended('dashboard');
-        }
-        else{
+        } else {
             $request->session()->put('error', 'Username and/or password is incorrect!');
             return redirect()->guest('/login');
         }

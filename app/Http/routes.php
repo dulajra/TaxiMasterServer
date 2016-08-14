@@ -11,7 +11,7 @@
 |
 */
 
-//Route::group(['middleware' => ['web']], function () {
+Route::group(['middleware' => ['web']], function () {
 
     Route::get('/test', function () {
         return View::make('test');
@@ -107,7 +107,7 @@
     Route::get('/ongoing-orders/get', 'OrderController@getOngoingOrders');
     Route::get('/finished-orders', 'OrderController@showFinishedOrdersPage');
     Route::get('/finished-orders/get', 'OrderController@getFinishedOrders');
-//});
+});
 
 Route::group(['middleware' => ['api']], function () {
 
@@ -120,6 +120,8 @@ Route::group(['middleware' => ['api']], function () {
     Route::get('/driver/order/respond', 'DriverController@respondToNewOrder');
     Route::get('/driver/order/finish', 'DriverController@finishOrder');
 
+    Route::post('/customer/login', 'AuthController@loginCustomer');
+    Route::post('/customer/logout', 'AuthController@logoutCustomer');
     Route::get('/customer/taxis', 'CustomerController@getAvailableTaxis');
     Route::get('/customer/order/new', 'CustomerController@placeOrder');
     Route::get('/customer/get/driverUpdate', 'CustomerController@getDriverUpdate');
