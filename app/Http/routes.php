@@ -121,6 +121,8 @@ Route::group(['middleware' => ['api']], function () {
     Route::get('/driver/order/finish', 'DriverController@finishOrder');
 
     Route::post('/customer/login', 'AuthController@loginCustomer');
+    Route::post('/customer/signUp', 'UserController@signUpUser');
+
     Route::post('/customer/logout', 'AuthController@logoutCustomer');
     Route::get('/customer/taxis', 'CustomerController@getAvailableTaxis');
     Route::get('/customer/order/new', 'CustomerController@placeOrder');
