@@ -143,7 +143,7 @@ class UserController extends Controller
 
         try {
             $user = new User;
-            $user->userLevelId = $request->userType;
+            $user->userLevelId = 4;
             $user->username = $request->phone;
             $user->firstName = $request->firstName;
             $user->lastName = $request->lastName;

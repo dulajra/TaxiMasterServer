@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 
 use Auth;
+use Illuminate\Support\Facades\Hash;
 
 
 class AuthController extends Controller
@@ -101,7 +102,7 @@ class AuthController extends Controller
         $r_password = $request->rpassword;
         $username = $request->username;
         if (count(User::where('username', $username)->get()) > 0) {
-            $request->session()->put('error', 'Username and/or password is incorrect!');
+            $request->session()->put('error', 'User already exist please login!');
             return redirect()->guest('/signup')->withInput();
         } else if ($r_password != $password) {
             $request->session()->put('error', 'Password mismatch!');
@@ -112,10 +113,11 @@ class AuthController extends Controller
             $user->firstName = $first_name;
             $user->lastName = $last_name;
             $user->phone = $phone;
-            $user->userLevel = UserLevel::find(4);
+            $user->userLevelId = 4;
+            $user->password = Hash::make($password);
             $user->save();
 
-            Auth::attempt(['username' => $user->username]);
+            Auth::attempt(['username' => $user->username, 'password' => $user->password]);
 
             return redirect('/');
         }
