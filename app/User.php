@@ -12,6 +12,10 @@ class User extends Authenticatable
       return $this->hasOne(TaxiDriver::class, 'id', 'id');
     }
 
+    public function customer(){
+        return $this->hasOne(Customer::class, 'id', 'id');
+    }
+
     public function newOrder(){
         return $this->hasMany(TaxiDriver::class, 'id', 'taxiDriverId');
     }
