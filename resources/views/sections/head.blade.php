@@ -64,5 +64,6 @@
         ::-webkit-scrollbar {
             display: none;
         }
+        ::-moz
     </style>
 </head>
