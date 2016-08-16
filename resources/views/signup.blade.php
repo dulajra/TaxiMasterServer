@@ -17,26 +17,37 @@
 
     <div class="register-box-body">
         <p class="login-box-msg">Register a new membership</p>
-
-        <form action="/signup" method="post">
+        @if(session('error'))
+            <div class="callout callout-danger">
+                <p>
+                    {{session()->pull('error')}}
+                </p>
+            </div>
+        @endif
+        <form action="/signup" method="post" >
+            {{ csrf_field() }}
             <div class="form-group has-feedback">
-                <input name="firstName" type="text" class="form-control" placeholder="First name">
+                <input name="firstName" type="text" class="form-control" placeholder="First name" value="{{ old('firstName') }}" required>
                 <span class="glyphicon glyphicon-user form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input name="lastName" type="text" class="form-control" placeholder="Last name">
+                <input name="lastName" type="text" class="form-control" placeholder="Last name" value="{{ old('lastName') }}" required>
                 <span class="glyphicon glyphicon-user form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input name="phone" type="tel" class="form-control" placeholder="Phone">
+                <input name="username" type="text" class="form-control" placeholder="Username" value="{{ old('username') }}" required>
+                <span class="glyphicon glyphicon-user form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback">
+                <input name="phone" type="tel" class="form-control" placeholder="Phone" value="{{ old('phone') }}" required>
                 <span class="glyphicon glyphicon-phone form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input name="password" type="password" class="form-control" placeholder="Password">
+                <input name="password" type="password" class="form-control" placeholder="Password" required>
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input type="password" class="form-control" placeholder="Retype password">
+                <input type="password" name="rpassword" class="form-control" placeholder="Retype password" required>
                 <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
             </div>
             <div class="row">
@@ -57,9 +68,11 @@
 
         <div class="social-auth-links text-center">
             <p>- OR -</p>
-            <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign up using
+            <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign up
+                using
                 Facebook</a>
-            <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign up using
+            <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign up
+                using
                 Google+</a>
         </div>
 

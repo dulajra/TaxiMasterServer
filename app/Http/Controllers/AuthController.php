@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
+use App\UserLevel;
 use Illuminate\Http\Request;
 
 
 use Auth;
+use Illuminate\Support\Facades\Hash;
 
 
 class AuthController extends Controller
@@ -88,5 +91,35 @@ class AuthController extends Controller
         $dc = new DriverController;
         $dc->updateState($request);
         return $dc->updateLocation($request);
+    }
+
+    public function signUp(Request $request)
+    {
+        $first_name = $request->firstName;
+        $last_name = $request->lastName;
+        $phone = $request->phone;
+        $password = $request->password;
+        $r_password = $request->rpassword;
+        $username = $request->username;
+        if (count(User::where('username', $username)->get()) > 0) {
+            $request->session()->put('error', 'User already exist please login!');
+            return redirect()->guest('/signup')->withInput();
+        } else if ($r_password != $password) {
+            $request->session()->put('error', 'Password mismatch!');
+            return redirect()->guest('/signup')->withInput();
+        } else {
+            $user = new User();
+            $user->username = $username;
+            $user->firstName = $first_name;
+            $user->lastName = $last_name;
+            $user->phone = $phone;
+            $user->userLevelId = 4;
+            $user->password = Hash::make($password);
+            $user->save();
+
+            Auth::attempt(['username' => $user->username, 'password' => $user->password]);
+
+            return redirect('/');
+        }
     }
 }
