@@ -66,7 +66,7 @@
                     <a class="page-scroll" href="#services">Services</a>
                 </li>
                 <li>
-                    <a class="page-scroll" href="/customer/new-hire">Hire</a>
+                    <a class="page-scroll" href="#newhire">Hire</a>
                 </li>
                 @if(!Auth::check())
                     <li>
@@ -136,101 +136,101 @@
 </section>
 
 <!-- Portfolio Grid Section -->
-<section id="portfolio" class="bg-light-gray">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <h2 class="section-heading">Portfolio</h2>
-                <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4 col-sm-6 portfolio-item">
-                <a href="#portfolioModal1" class="portfolio-link" data-toggle="modal">
-                    <div class="portfolio-hover">
-                        <div class="portfolio-hover-content">
-                            <i class="fa fa-plus fa-3x"></i>
-                        </div>
-                    </div>
-                    <img src="/customer_libs/img/portfolio/roundicons.png" class="img-responsive" alt="">
-                </a>
-                <div class="portfolio-caption">
-                    <h4>Round Icons</h4>
-                    <p class="text-muted">Graphic Design</p>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-6 portfolio-item">
-                <a href="#portfolioModal2" class="portfolio-link" data-toggle="modal">
-                    <div class="portfolio-hover">
-                        <div class="portfolio-hover-content">
-                            <i class="fa fa-plus fa-3x"></i>
-                        </div>
-                    </div>
-                    <img src="/customer_libs/img/portfolio/startup-framework.png" class="img-responsive" alt="">
-                </a>
-                <div class="portfolio-caption">
-                    <h4>Startup Framework</h4>
-                    <p class="text-muted">Website Design</p>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-6 portfolio-item">
-                <a href="#portfolioModal3" class="portfolio-link" data-toggle="modal">
-                    <div class="portfolio-hover">
-                        <div class="portfolio-hover-content">
-                            <i class="fa fa-plus fa-3x"></i>
-                        </div>
-                    </div>
-                    <img src="/customer_libs/img/portfolio/treehouse.png" class="img-responsive" alt="">
-                </a>
-                <div class="portfolio-caption">
-                    <h4>Treehouse</h4>
-                    <p class="text-muted">Website Design</p>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-6 portfolio-item">
-                <a href="#portfolioModal4" class="portfolio-link" data-toggle="modal">
-                    <div class="portfolio-hover">
-                        <div class="portfolio-hover-content">
-                            <i class="fa fa-plus fa-3x"></i>
-                        </div>
-                    </div>
-                    <img src="/customer_libs/img/portfolio/golden.png" class="img-responsive" alt="">
-                </a>
-                <div class="portfolio-caption">
-                    <h4>Golden</h4>
-                    <p class="text-muted">Website Design</p>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-6 portfolio-item">
-                <a href="#portfolioModal5" class="portfolio-link" data-toggle="modal">
-                    <div class="portfolio-hover">
-                        <div class="portfolio-hover-content">
-                            <i class="fa fa-plus fa-3x"></i>
-                        </div>
-                    </div>
-                    <img src="/customer_libs/img/portfolio/escape.png" class="img-responsive" alt="">
-                </a>
-                <div class="portfolio-caption">
-                    <h4>Escape</h4>
-                    <p class="text-muted">Website Design</p>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-6 portfolio-item">
-                <a href="#portfolioModal6" class="portfolio-link" data-toggle="modal">
-                    <div class="portfolio-hover">
-                        <div class="portfolio-hover-content">
-                            <i class="fa fa-plus fa-3x"></i>
-                        </div>
-                    </div>
-                    <img src="/customer_libs/img/portfolio/dreams.png" class="img-responsive" alt="">
-                </a>
-                <div class="portfolio-caption">
-                    <h4>Dreams</h4>
-                    <p class="text-muted">Website Design</p>
-                </div>
-            </div>
-        </div>
-    </div>
+<section id="newhire" class="bg-light-gray">
+
+</section>
+
+<!-- On submit handler -->
+<script>
+    $('#new_order_form').validate();
+
+    $('#submit').click(function () {
+        if ($('#new_order_form').valid()) {
+            var origin = $("[name='origin']").val();
+            var destination = $("[name='destination']").val();
+            var originLatitude = $("[name='originLatitude']").val();
+            var originLongitude = $("[name='originLongitude']").val();
+            var destinationLatitude = $("[name='destinationLatitude']").val();
+            var destinationLongitude = $("[name='destinationLongitude']").val();
+            var time = $("[name='time']").val();
+            var note = $("[name='note']").val();
+            var contact = $("[name='contact']").val();
+            var driverId = $("[name='driverId']").val();
+
+            var url = "/taxioperator/order/new?&originLatitude=" + originLatitude + "&originLongitude=" + originLongitude + "&destinationLatitude=" + destinationLatitude + "&destinationLongitude=" + destinationLongitude + "&driverId=" + driverId + "&origin=" + origin + "&destination=" + destination + "&time=" + time + "&contact=" + contact + "&note=" + note;
+
+            $.get(url, function (data) {
+                $('#stateImage').show();
+                var refreshUrl = "http://taximaster.herokuapp.com/taxioperator/order/state?id=" + data['id'];
+
+                var interval = setInterval(function () {
+                    $.get(refreshUrl, function (data) {
+                        if (data['state'] == "ACCEPTED") {
+                            $('#stateImage').attr("src", "/img/right.png");
+                            setTimeout(function () {
+                                window.location.href = "/ongoing-orders";
+                            }, 1000);
+                            clearInterval(interval);
+                        }
+                        else if (data['state'] == "REJECTED") {
+                            $('#stateImage').attr("src", "/img/false.png");
+                            clearInterval(interval);
+                        }
+                    })
+                }, 1000);
+            });
+        }
+    });
+
+
+</script>
+
+
+<!-- Functions related to google auto complete location -->
+<script>
+
+    function initMap() {
+        var inputFrom = /** @type {!HTMLInputElement} */(
+                document.getElementById('from'));
+        var inputTo = /** @type {!HTMLInputElement} */(
+                document.getElementById('to'));
+
+        var autocompleteFrom = new google.maps.places.Autocomplete(inputFrom);
+        var autocompleteTo = new google.maps.places.Autocomplete(inputTo);
+
+        autocompleteFrom.addListener('place_changed', function () {
+            var place = autocompleteFrom.getPlace();
+            if (!place.geometry) {
+                alert("Location details are not available");
+                inputFrom.value = "";
+                return;
+            }
+
+            $('#fromLat').val(place.geometry.location.lat());
+            $('#fromLng').val(place.geometry.location.lng());
+
+        });
+
+        autocompleteTo.addListener('place_changed', function () {
+            var place = autocompleteTo.getPlace();
+            if (!place.geometry) {
+                alert("Location details are not available");
+                inputTo.value = "";
+                return;
+            }
+
+            $('#toLat').val(place.geometry.location.lat());
+            $('#toLng').val(place.geometry.location.lng());
+
+        });
+
+    }
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZ6jBZMZJLShZ4mA_wFvG2Lnl4dvKKfk8&libraries=places&callback=initMap"
+        async defer></script>
+</div>
+</div>
 </section>
 
 <!-- About Section -->
