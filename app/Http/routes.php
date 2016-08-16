@@ -127,5 +127,6 @@ Route::group(['middleware' => ['api']], function () {
     Route::get('/customer/taxis', 'CustomerController@getAvailableTaxis');
     Route::get('/customer/order/new', 'CustomerController@placeOrder');
     Route::get('/customer/get/driverUpdate', 'CustomerController@getDriverUpdate');
+    Route::get('/customer/orders', 'CustomerController@getOrdersList');
 
 });

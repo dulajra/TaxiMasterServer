@@ -50,17 +50,16 @@ class CustomerController extends Controller
         $itemsToDelete = array();
 
         for ($i = 0; $i < count($response); $i++) {
-            if($json['rows'][$i]['elements'][0]['status'] === "OK"){
+            if ($json['rows'][$i]['elements'][0]['status'] === "OK") {
                 $response[$i]['distance'] = $json['rows'][$i]['elements'][0]['distance']['text'];
                 $response[$i]['duration'] = $json['rows'][$i]['elements'][0]['duration']['text'];
                 $response[$i]['durationValue'] = $json['rows'][$i]['elements'][0]['duration']['value'];
-            }
-            else{
+            } else {
                 array_push($itemsToDelete, $i);
             }
         }
 
-        for($i=count($itemsToDelete)-1;$i>-1;$i--){
+        for ($i = count($itemsToDelete) - 1; $i > -1; $i--) {
             array_splice($response, $itemsToDelete[$i], 1);
         }
 
@@ -127,7 +126,7 @@ class CustomerController extends Controller
     {
         $response = array('success' => false);
         $driverUpdate = DriverUpdate::find($request->driverId);
-        
+
         $destinationLatitude = $request->latitude;
         $destinationLongitude = $request->longitude;
         $originLatitude = $driverUpdate->latitude;
@@ -145,16 +144,25 @@ class CustomerController extends Controller
 
         return $response;
     }
-    
-    public function placeOrderByTaxiOperator(Request $request){
-        $result = $this->placeOrder($request);
-        if($result['success']){
-            $data = array('id'=>$result['id'], 'status'=>'PENDING');
-            return $data;
+
+    public function getOrdersList(Request $request)
+    {
+        if ($request->state == 'FINISHED') {
+            return NewOrder::where(['customerId'=>$request->customerId])->get();
+        } else {
+            return NewOrder::where(['state'=>$request->state, 'customerId'=>$request->customerId])->get();
         }
-        else{
+    }
+
+    public function placeOrderByTaxiOperator(Request $request)
+    {
+        $result = $this->placeOrder($request);
+        if ($result['success']) {
+            $data = array('id' => $result['id'], 'status' => 'PENDING');
+            return $data;
+        } else {
             $errors = new MessageBag(['msg' => 'Something went wrong']);
-            $data = array('id'=>'error');
+            $data = array('id' => 'error');
             return back()->withErrors($errors);
         }
     }
