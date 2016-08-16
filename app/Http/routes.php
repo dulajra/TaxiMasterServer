@@ -11,7 +11,7 @@
 |
 */
 
-Route::group(['middleware' => ['web']], function () {
+//Route::group(['middleware' => ['web']], function () {
 
     Route::get('/test', function () {
         return View::make('test');
@@ -19,9 +19,14 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::get('/', function () {
         if (Auth::check()) {
-            return redirect("/dashboard");
+            if (Auth::user()->userLevel->id == 4) {
+                // Normal user
+                return view('customer.mainlayout');
+            } else {
+                return redirect("/dashboard");
+            }
         } else {
-            return View::make('login');
+            return view('customer.mainlayout');
         }
     });
 
@@ -107,7 +112,14 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/ongoing-orders/get', 'OrderController@getOngoingOrders');
     Route::get('/finished-orders', 'OrderController@showFinishedOrdersPage');
     Route::get('/finished-orders/get', 'OrderController@getFinishedOrders');
-});
+
+
+    // customer routes
+    Route::get('/signup/', function (){
+        return view('signup');
+    });
+    Route::post('/signup/', 'AuthController@signUp');
+//});
 
 Route::group(['middleware' => ['api']], function () {
 
