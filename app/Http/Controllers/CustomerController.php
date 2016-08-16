@@ -79,12 +79,7 @@ class CustomerController extends Controller
         $time = $request->time;
         $note = $request->note;
         $contact = $request->contact;
-        if(isset($request['oneSignalUserId'])){
-            $oneSignalUserId = $request->oneSignalUserId;
-        }
-        else{
-            $oneSignalUserId = null;
-        }
+        $customerId = $request->customerId;
 
         $newOrder = new NewOrder;
         $newOrder->origin = $origin;
@@ -97,8 +92,8 @@ class CustomerController extends Controller
         $newOrder->note = $note;
         $newOrder->contact = $contact;
         $newOrder->taxiDriverId = $driverId;
+        $newOrder->customerId = $customerId;
         $newOrder->state = "PENDING";
-        $newOrder->oneSignalUserId = $oneSignalUserId;
         $newOrder->save();
 
         $title = "New Hire Received";
