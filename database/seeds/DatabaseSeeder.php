@@ -18,9 +18,10 @@ class DatabaseSeeder extends Seeder
         $this->call(UserLevelsPrivilegesSeeder::class);
         $this->call(TaxisTableSeeder::class);
         $this->call(UsersTableSeeder::class);
+        $this->call(CustomerTableSeeder::class);
         $this->call(TaxiDriverTableSeeder::class);
         $this->call(DriverUpdatesTableSeeder::class);
-        $this->call(FinishOrderTableSeeder::class);
         $this->call(NewOrderTableSeeder::class);
+        $this->call(FinishOrderTableSeeder::class);
     }
 }

@@ -14,7 +14,7 @@ class AddCustomerDetailsToNewordersTable extends Migration
     {
         Schema::table('new_orders', function (Blueprint $table) {
             $table->dropColumn('oneSignalUserId');
-            $table->integer('customerId')->unsigned();
+            $table->integer('customerId')->unsigned()->nullable();
             $table->foreign('customerId')->references('id')->on('customers');
         });
     }

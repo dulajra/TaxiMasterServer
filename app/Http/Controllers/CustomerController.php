@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\FinishedOrder;
 use Illuminate\Http\Request;
 use App\DriverUpdate;
 use App\TaxiDriver;
@@ -148,9 +149,9 @@ class CustomerController extends Controller
     public function getOrdersList(Request $request)
     {
         if ($request->state == 'FINISHED') {
-            return NewOrder::where(['customerId'=>$request->customerId])->get();
+            return FinishedOrder::where(['customerId'=>$request->customerId])->get();
         } else {
-            return NewOrder::where(['state'=>$request->state, 'customerId'=>$request->customerId])->get();
+            return NewOrder::where(['customerId'=>$request->customerId])->get();
         }
     }
 
