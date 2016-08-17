@@ -58,6 +58,27 @@
                     </a>
                 </li>
             @endif
+            <li class="header">COMMON NAVIGATION</li>
+            <li class="treeview @yield('main.common.new_offer') @yield('main.common.view_offers')">
+                <a>
+                    <i class="fa fa-gift"></i> <span>Offers</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="@yield('main.common.new_offer')">
+                        <a href="/newoffer">
+                            <i class="fa fa-plus"></i> <span>New Offer</span>
+                        </a>
+                    </li>
+                    <li class="@yield('main.common.view_offers')">
+                        <a href="/offerhistory">
+                            <i class="fa fa-history"></i> <span>Offer History</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
             <li class="header">ADMIN NAVIGATION</li>
             @if(in_array(5, Auth::user()->getPrivileges()))
 

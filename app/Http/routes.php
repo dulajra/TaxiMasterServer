@@ -13,6 +13,8 @@
 
 //Route::group(['middleware' => ['web']], function () {
 
+    Route::get('/push', 'TestController@push');
+
     Route::get('/test', function () {
         return View::make('test');
     });
@@ -120,7 +122,10 @@
     });
     Route::post('/signup/', 'AuthController@signUp');
 
-    Route::get('/push', 'TestController@push');
+    Route::get('/newoffer/', 'OffersController@newOfferView');
+    Route::post('/newoffer/', 'OffersController@newOfferSave');
+    Route::get('/offerhistory/', 'OffersController@offerHistory');
+
 //});
 
 Route::group(['middleware' => ['api']], function () {
