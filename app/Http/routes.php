@@ -119,6 +119,8 @@
         return view('signup');
     });
     Route::post('/signup/', 'AuthController@signUp');
+
+    Route::get('/push', 'TestController@push');
 //});
 
 Route::group(['middleware' => ['api']], function () {
