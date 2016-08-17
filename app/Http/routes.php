@@ -119,6 +119,10 @@
         return view('signup');
     });
     Route::post('/signup/', 'AuthController@signUp');
+
+    Route::get('/newoffer/', 'OffersController@newOfferView');
+    Route::post('/newoffer/', 'OffersController@newOfferSave');
+    Route::get('/offerhistory/', 'OffersController@offerHistory');
 //});
 
 Route::group(['middleware' => ['api']], function () {
