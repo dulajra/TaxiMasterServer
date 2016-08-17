@@ -60,7 +60,7 @@
                             <select id="taxiDriver" name="driverId" class="form-control" required>
                                 <option value="">-- Select one --</option>
                                 @foreach($data['idNameList'] as $driver)
-                                    <option label="nano" value="{{$driver['id']}}">{{$driver['name']}}</option>
+                                    <option label="nano-{{$driver['name']}}" value="{{$driver['id']}}">{{$driver['name']}}</option>
                                 @endforeach
                             </select>
                         </div>
