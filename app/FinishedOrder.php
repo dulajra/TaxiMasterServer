@@ -12,7 +12,11 @@ class FinishedOrder extends Model
         return $this->belongsTo(Taxi::class, 'taxiId', 'id');
     }
 
-    public function user(){
+    public function taxiDriver(){
         return $this->belongsTo(User::class, 'taxiDriverId', 'id');
+    }
+
+    public function customer(){
+        return $this->belongsTo(User::class, 'customerId', 'id');
     }
 }

@@ -14,7 +14,7 @@ class AddLocationLatlngToFinishedOrdersTable extends Migration
     {
         Schema::table('finished_orders', function (Blueprint $table) {
             $table->double('originLatitude', 8, 6);
-            $table->double('originLongitude', 9, 6);
+                $table->double('originLongitude', 9, 6);
             $table->double('destinationLatitude', 8, 6);
             $table->double('destinationLongitude', 9, 6);
         });

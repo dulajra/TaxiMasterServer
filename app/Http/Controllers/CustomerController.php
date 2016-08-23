@@ -149,9 +149,9 @@ class CustomerController extends Controller
     public function getOrdersList(Request $request)
     {
         if ($request->state == 'FINISHED') {
-            return FinishedOrder::where(['customerId'=>$request->customerId])->get();
+            return FinishedOrder::where(['customerId'=>$request->customerId])->with('taxiDriver')->get();
         } else {
-            return NewOrder::where(['customerId'=>$request->customerId])->get();
+            return NewOrder::where(['customerId'=>$request->customerId])->with('taxiDriver')->get();
         }
     }
 

@@ -114,6 +114,11 @@ class DriverController extends Controller
         $finishedOrder->fare = $request->fare;
         $finishedOrder->taxiDriverId = $request->taxiDriverId;
         $finishedOrder->taxiId = TaxiDriver::find($request->taxiDriverId)->taxi->id;
+        $finishedOrder->originLatitude = $request->originLatitude;
+        $finishedOrder->originLongitude = $request->originLongitude;
+        $finishedOrder->destinationLatitude = $request->destinationLatitude;
+        $finishedOrder->destinationLongitude = $request->destinationLongitude;
+        $finishedOrder->customerId = $request->customerId;
         $result = $finishedOrder->save();
 
         if (!$result) {
