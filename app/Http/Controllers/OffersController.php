@@ -24,6 +24,7 @@ class OffersController extends Controller
         }
 
         $offer->save();
+        OneSignalController::sendMessageToAll($offer->title, $offer->description);
         return redirect('/offerhistory/');
     }
 
