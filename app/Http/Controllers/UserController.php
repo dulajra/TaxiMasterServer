@@ -123,22 +123,13 @@ class UserController extends Controller
     public function signUpUser(Request $request)
     {
         if (count(User::where('username', $request->username)->get()) > 0) {
-            $errors = new MessageBag(['msg' => 'Username already exists!']);
-            return back()->withErrors($errors)->withInput();
+            return array('success' => 1);
         }
         if (count(User::where('firstName', $request->firstName)->where('lastName', $request->lastName)->get()) > 0) {
-            $errors = new MessageBag(['msg' => 'User with the same full name already exists!']);
-            return back()->withErrors($errors)->withInput();
+            return array('success' => 2);
         }
         if (count(User::where('phone', $request->phone)->get()) > 0) {
-            $errors = new MessageBag(['msg' => 'Mobile phone already exists!']);
-            return back()->withErrors($errors)->withInput();
-        }
-        if ($request->userType == 2) {
-            if (count(TaxiDriver::where('licenceNo', $request->licenceNo)->get()) > 0) {
-                $errors = new MessageBag(['msg' => 'Licence Number already exists!']);
-                return back()->withErrors($errors)->withInput();
-            }
+            return array('success' => 1);
         }
 
         try {
@@ -152,28 +143,24 @@ class UserController extends Controller
             $user->isActive = 1;
             $user->save();
 
-            if ($request->userType==4){
-                $user=User::where(['id'=>$request->username])->first();
-                $cust=new Customer;
+            $user = User::where(['phone' => $request->phone])->first();
+            $customer = new Customer;
 
-                if($request->oneSignalUserId===null || $request->id ===''){
-                    $cust=null;
-                }else{
-                    $cust->oneSignalUserId=$request->oneSignalUserId;
-                    $cust->id=$user->id;
-                }
-                $result=$user->cust()->save($cust);
-                if($result){
-                    array('success' => 0);
-                }else{
-                    array('failed'=>-1);
-                }
+            if ($request->oneSignalUserId === null || $request->id === '') {
+                $customer->oneSignalUserId = null;
+            } else {
+                $customer->oneSignalUserId = $request->oneSignalUserId;
             }
+            $result = $user->customer()->save($customer);
+            if ($result) {
+                return array('success' => 0);
+            } else {
+                return array('success' => -1);
+            }
+
         } catch (\Exception $e) {
-            $errors = new MessageBag(['msg' => 'Something went wrong. Please try again!']);
-            return back()->withErrors($errors);
+            return array('error' => $e, 'success' => -1);
         }
-        return redirect('/accounts/view');
     }
 
     public function changePassword(Request $request)

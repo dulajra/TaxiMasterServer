@@ -31,6 +31,6 @@ class UsersTableSeeder extends Seeder
         (new \App\User(['username'=>'madhawa', 'password'=>\Illuminate\Support\Facades\Hash::make('madhawa1234'), 'firstName'=>'Madhawa', 'lastName'=>'Vidanapathirana', 'phone'=>'0756374125', 'userLevelId'=>3, 'isActive'=>true]))->save();
         (new \App\User(['username'=>'nimash', 'password'=>\Illuminate\Support\Facades\Hash::make('nimash1234'), 'firstName'=>'Nimash', 'lastName'=>'Dilanka', 'phone'=>'0721150439', 'userLevelId'=>3, 'isActive'=>true]))->save();
 
-        (new \App\User(['username'=>'venuka', 'password'=>\Illuminate\Support\Facades\Hash::make('venuka1234'), 'firstName'=>'Venuka', 'lastName'=>'Sachin', 'phone'=>'0777111222', 'userLevelId'=>4, 'isActive'=>true]))->save();
+        (new \App\User(['username'=>'0777111222', 'password'=>\Illuminate\Support\Facades\Hash::make('kasun1234'), 'firstName'=>'Kasun', 'lastName'=>'Sanjaya', 'phone'=>'0777111222', 'userLevelId'=>4, 'isActive'=>true]))->save();
     }
 }

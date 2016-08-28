@@ -137,11 +137,15 @@ class CustomerController extends Controller
         $result = file_get_contents($url);
         $json = json_decode($result, true);
 
+        $data = array();
+        $data['location'] = $json['origin_addresses'][0];
+        $data['latitude'] = $driverUpdate->latitude;
+        $data['longitude'] = $driverUpdate->longitude;
+        $data['distance'] = $json['rows'][0]['elements'][0]['distance']['text'];
+        $data['duration'] = $json['rows'][0]['elements'][0]['duration']['text'];
+
         $response['success'] = true;
-        $response['latitude'] = $driverUpdate->latitude;
-        $response['longitude'] = $driverUpdate->longitude;
-        $response['distance'] = $json['rows'][0]['elements'][0]['distance']['text'];
-        $response['duration'] = $json['rows'][0]['elements'][0]['duration']['text'];
+        $response['data'] = $data;
 
         return $response;
     }

@@ -27,7 +27,7 @@ class AddForeignKeyConstraintsToCustomersTable extends Migration
     public function down()
     {
         Schema::table('customers', function (Blueprint $table) {
-            //
+            $table->dropForeign("customers_id_foreign");
         });
     }
 }

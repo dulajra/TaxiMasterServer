@@ -15,8 +15,12 @@ class AddForeignKeysToNewOrdersTable extends Migration
         Schema::table('new_orders', function (Blueprint $table) {
             $table->integer('taxiDriverId')->unsigned();
             $table->foreign('taxiDriverId')->references('id')->on('taxi_drivers');
+
             $table->integer('taxiOperatorUserId')->unsigned()->nullable();
             $table->foreign('taxiOperatorUserId')->references('id')->on('taxi_operators');
+
+            $table->integer('taxiTypeId')->unsigned();
+            $table->foreign('taxiTypeId')->references('id')->on('taxi_types');
         });
     }
 
@@ -28,7 +32,7 @@ class AddForeignKeysToNewOrdersTable extends Migration
     public function down()
     {
         Schema::table('new_orders', function (Blueprint $table) {
-            //
+            $table->dropForeign("new_orders_taxitypeid_foreign");
         });
     }
 }

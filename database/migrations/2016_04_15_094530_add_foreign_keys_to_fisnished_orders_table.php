@@ -30,7 +30,9 @@ class AddForeignKeysToFisnishedOrdersTable extends Migration
     public function down()
     {
         Schema::table('finished_orders', function (Blueprint $table) {
-            //
+            $table->dropForeign("finished_orders_taxidriverid_foreign");
+            $table->dropForeign("finished_orders_taxiid_foreign");
+            $table->dropForeign("finished_orders_taxioperatoruserid_foreign");
         });
     }
 }

@@ -28,7 +28,8 @@ class AddForeignKeysToDriverUpdatesTable extends Migration
     public function down()
     {
         Schema::table('driver_updates', function (Blueprint $table) {
-            //
+            $table->dropForeign("driver_updates_stateid_foreign");
+            $table->dropForeign("driver_updates_id_foreign");
         });
     }
 }
