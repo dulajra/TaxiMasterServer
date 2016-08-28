@@ -114,6 +114,7 @@
     Route::get('/ongoing-orders/get', 'OrderController@getOngoingOrders');
     Route::get('/finished-orders', 'OrderController@showFinishedOrdersPage');
     Route::get('/finished-orders/get', 'OrderController@getFinishedOrders');
+    Route::get('/view-reviews', 'ReviewController@getDriverRatings');
 
 
     // customer routes
@@ -125,6 +126,7 @@
     Route::get('/newoffer/', 'OffersController@newOfferView');
     Route::post('/newoffer/', 'OffersController@newOfferSave');
     Route::get('/offerhistory/', 'OffersController@offerHistory');
+
 
 //});
 
