@@ -150,6 +150,15 @@ class CustomerController extends Controller
         return $response;
     }
 
+    public function getDriverLocation(Request $request)
+    {
+        $response = array('success' => false);
+        $driverUpdate = DriverUpdate::find($request->driverId);
+        $response['success'] = true;
+        $response['data'] = array('latitude' => $driverUpdate->latitude, 'longitude' => $driverUpdate->longitude);
+        return $response;
+    }
+
     public function getOrdersList(Request $request)
     {
         if ($request->state == 'FINISHED') {
