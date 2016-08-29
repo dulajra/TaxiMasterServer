@@ -31,6 +31,7 @@
                     </a>
                 </li>
             @endif
+
             @if(in_array(3, Auth::user()->getPrivileges()))
 
                 {{--@if(count(\App\UserLevelPrivilege::where('user_level_id', \Illuminate\Support\Facades\Auth::user()->userLevel->id)->where('privilege_id', 3)->get()))--}}
@@ -49,6 +50,22 @@
                     </a>
                 </li>
             @endif
+
+
+            @if(in_array(6, Auth::user()->getPrivileges()))
+
+                {{--            @if(count(\App\UserLevelPrivilege::where('user_level_id', \Illuminate\Support\Facades\Auth::user()->userLevel->id)->where('privilege_id', 4)->get()))--}}
+                <li class="@yield('main.navigation.order_history')">
+                    <a href="/view-reviews">
+                        <i class="fa fa-history"></i> <span>Feedback</span>
+                    </a>
+                </li>
+            @endif
+
+
+
+
+
             @if(in_array(2, Auth::user()->getPrivileges()))
                 {{--            @if(count(\App\UserLevelPrivilege::where('user_level_id', \Illuminate\Support\Facades\Auth::user()->userLevel->id)->where('privilege_id', 2)->get()))--}}
                 <li class="header">OPERATOR NAVIGATION</li>
