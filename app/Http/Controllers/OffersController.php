@@ -33,4 +33,8 @@ class OffersController extends Controller
         $offers = Offer::all();
         return view('admin.viewOffers', ['offers' => $offers]);
     }
+    
+    public function getOffers(){
+       return Offer::all();
+    }
 }

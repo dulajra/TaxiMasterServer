@@ -122,12 +122,6 @@
         return view('signup');
     });
     Route::post('/signup/', 'AuthController@signUp');
-
-    Route::get('/newoffer/', 'OffersController@newOfferView');
-    Route::post('/newoffer/', 'OffersController@newOfferSave');
-    Route::get('/offerhistory/', 'OffersController@offerHistory');
-
-
 //});
 
 Route::group(['middleware' => ['api']], function () {
@@ -149,5 +143,7 @@ Route::group(['middleware' => ['api']], function () {
     Route::get('/customer/get/driverUpdate', 'CustomerController@getDriverUpdate');
     Route::get('/customer/get/driverLocation', 'CustomerController@getDriverLocation');
     Route::get('/customer/orders', 'CustomerController@getOrdersList');
+
+    Route::get('/offers', 'OffersController@getOffers');
 
 });
