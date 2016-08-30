@@ -114,7 +114,9 @@
     Route::get('/ongoing-orders/get', 'OrderController@getOngoingOrders');
     Route::get('/finished-orders', 'OrderController@showFinishedOrdersPage');
     Route::get('/finished-orders/get', 'OrderController@getFinishedOrders');
-    Route::get('/view-reviews', 'ReviewController@getDriverRatings');
+    Route::post('/add-reviews', 'ReviewController@rateDriver');
+    Route::get('/view-reviews/{driver_id}', 'ReviewController@getDriverRatings');
+    Route::get('/view-reviews/getAllReviews', 'ReviewController@getAllReviews');
 
 
     // customer routes
