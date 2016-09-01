@@ -21,6 +21,8 @@ class CreateFinishedOrdersTable extends Migration
             $table->double('distance', 10, 3);
             $table->string('contact', 15);
             $table->integer('fare');
+            $table->integer('rating')->default(0);
+            $table->string('comment')->nullable();
         });
     }
 
