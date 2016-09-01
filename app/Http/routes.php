@@ -118,7 +118,6 @@
     Route::get('/view-reviews/{driver_id}', 'ReviewController@getDriverRatings');
     Route::get('/view-reviews/getAllReviews', 'ReviewController@getAllReviews');
 
-
     // customer routes
     Route::get('/signup/', function (){
         return view('signup');
