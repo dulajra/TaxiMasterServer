@@ -150,4 +150,6 @@ Route::group(['middleware' => ['api']], function () {
     Route::post('/newoffer/', 'OffersController@newOfferSave');
     Route::get('/offerhistory/', 'OffersController@offerHistory');
 
+    Route::get('/reviews/', 'ReviewController@getReviews');
+
 });
