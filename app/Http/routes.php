@@ -146,5 +146,8 @@ Route::group(['middleware' => ['api']], function () {
     Route::get('/customer/orders', 'CustomerController@getOrdersList');
 
     Route::get('/offers', 'OffersController@getOffers');
+    Route::get('/newoffer/', 'OffersController@newOfferView');
+    Route::post('/newoffer/', 'OffersController@newOfferSave');
+    Route::get('/offerhistory/', 'OffersController@offerHistory');
 
 });
