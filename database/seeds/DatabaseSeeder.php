@@ -23,5 +23,6 @@ class DatabaseSeeder extends Seeder
         $this->call(DriverUpdatesTableSeeder::class);
         $this->call(NewOrderTableSeeder::class);
         $this->call(FinishOrderTableSeeder::class);
+        $this->call(OffersTableSeeder::class);
     }
 }
