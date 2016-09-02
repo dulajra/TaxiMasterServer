@@ -180,4 +180,12 @@ class CustomerController extends Controller
             return back()->withErrors($errors);
         }
     }
+
+    public function saveReview(Request $request){
+        $flight = FinishedOrder::find($request->id);
+        $flight->rating = $request->rating;
+        $flight->comment = $request->comment;
+        $result = $flight->save();
+        return array('success' => $result);
+    }
 }

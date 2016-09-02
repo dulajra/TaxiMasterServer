@@ -14,8 +14,8 @@ class CreateFinishedOrdersTable extends Migration
     {
         Schema::create('finished_orders', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestamp('startTime');
-            $table->timestamp('endTime');
+            $table->dateTime('startTime');
+            $table->dateTime('endTime');
             $table->text('origin');
             $table->text('destination');
             $table->double('distance', 10, 3);

@@ -11,10 +11,10 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        (new \App\User(['username'=>'admin', 'password'=>\Illuminate\Support\Facades\Hash::make('admin1234'), 'firstName'=>'Dulaj', 'lastName'=>'Atapattu', 'phone'=>'0777146646', 'userLevelId'=>1, 'isActive'=>true]))->save();
+        (new \App\User(['username'=>'admin', 'password'=>\Illuminate\Support\Facades\Hash::make('admin1234'), 'firstName'=>'Dulaj', 'lastName'=>'Atapattu', 'phone'=>'0777146646', 'userLevelId'=>1, 'isActive'=>true, 'image' => 'https://lh6.googleusercontent.com/twxjbozO9CDJtOFPNg69ggwPbZOOYRxIdwq368TmU5t_lIW_xc6yle2F5JzmLBXfw4qVMEmbBzm1P-E=w1366-h630-rw']))->save();
 
-        (new \App\User(['username'=>'anuradha', 'password'=>\Illuminate\Support\Facades\Hash::make('anuradha1234'), 'firstName'=>'Anuradha', 'lastName'=>'Wickramrachchi', 'phone'=>'0715944191', 'userLevelId'=>2, 'isActive'=>true]))->save();
-        (new \App\User(['username'=>'ravidu', 'password'=>\Illuminate\Support\Facades\Hash::make('ravidu1234'), 'firstName'=>'Ravidu', 'lastName'=>'Lashan', 'phone'=>'0712481879', 'userLevelId'=>2, 'isActive'=>true]))->save();
+        (new \App\User(['username'=>'anuradha', 'password'=>\Illuminate\Support\Facades\Hash::make('anuradha1234'), 'firstName'=>'Anuradha', 'lastName'=>'Wickramrachchi', 'phone'=>'0715944191', 'userLevelId'=>2, 'isActive'=>true, 'image' => 'https://lh3.googleusercontent.com/0ugIPwVlLt4M9HbjTus04P5nRmbTKDfnPzAF3Jk0AzqAdhnSiswVoMnp8Y3SCQqwU5mDOSf3yNIO6O0=w1366-h630-rw']))->save();
+        (new \App\User(['username'=>'ravidu', 'password'=>\Illuminate\Support\Facades\Hash::make('ravidu1234'), 'firstName'=>'Ravidu', 'lastName'=>'Lashan', 'phone'=>'0712481879', 'userLevelId'=>2, 'isActive'=>true, 'image' => 'https://lh6.googleusercontent.com/5C7cu6p0jPQxlsK2VfqSh7zNy7hlJdDenujfS-3cIjxbJzoM85N2_LNmWe4YFJM3Im94tR0IoNT7IsM=w1366-h630']))->save();
         (new \App\User(['username'=>'jayan', 'password'=>\Illuminate\Support\Facades\Hash::make('jayan1234'), 'firstName'=>'Jayan', 'lastName'=>'Vidanapathirana', 'phone'=>'0715594516', 'userLevelId'=>2, 'isActive'=>true]))->save();
         (new \App\User(['username'=>'eranga', 'password'=>\Illuminate\Support\Facades\Hash::make('eranga1234'), 'firstName'=>'Eranga', 'lastName'=>'Heshan', 'phone'=>'0715521984', 'userLevelId'=>2, 'isActive'=>true]))->save();
         (new \App\User(['username'=>'roshan', 'password'=>\Illuminate\Support\Facades\Hash::make('roshan1234'), 'firstName'=>'Roshan', 'lastName'=>'Madusanka', 'phone'=>'0715894672', 'userLevelId'=>2, 'isActive'=>true]))->save();

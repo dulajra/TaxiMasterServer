@@ -117,7 +117,6 @@
     Route::post('/add-reviews', 'ReviewController@rateDriver');
     Route::get('/view-reviews/{driver_id}', 'ReviewController@getDriverRatings');
     Route::get('/view-reviews/getAllReviews', 'ReviewController@getAllReviews');
-
     // customer routes
     Route::get('/signup/', function (){
         return view('signup');
@@ -134,8 +133,9 @@ Route::group(['middleware' => ['api']], function () {
     Route::post('/driver/update/state', 'DriverController@updateState');
     Route::post('/driver/update/location', 'DriverController@updateLocation');
     Route::get('/driver/order/respond', 'DriverController@respondToNewOrder');
-    Route::get('/driver/order/finish', 'DriverController@finishOrder');
+    Route::post('/order/rate', 'CustomerController@saveReview');
 
+    Route::post('/customer/login', 'AuthController@loginCustomer');
     Route::post('/customer/login', 'AuthController@loginCustomer');
     Route::post('/customer/signUp', 'UserController@signUpUser');
     Route::post('/customer/logout', 'AuthController@logoutCustomer');
