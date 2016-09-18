@@ -11,7 +11,7 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        $BASE_URL = "dulaj.uomuv.com/taximaster/userimages";
+        $BASE_URL = "http://dulaj.comuv.com/taximaster/userimages";
         
         (new \App\User(['username' => 'admin', 'password' => \Illuminate\Support\Facades\Hash::make('admin1234'), 'firstName' => 'Dulaj', 'lastName' => 'Atapattu', 'phone' => '0777146646', 'userLevelId' => 1, 'isActive' => true, 'image' => $BASE_URL . '/dulaj.jpg']))->save();
 
