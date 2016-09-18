@@ -20,11 +20,11 @@ class OffersController extends Controller
         $offer->title = $request->title;
         $offer->description = $request->description;
         if (!empty($request->url)) {
-            $offer->url = $request->url;
+            $offer->ImageUrl = $request->url;
         }
 
         $offer->save();
-        OneSignalController::sendMessageToAll($offer->title, $offer->description);
+        OneSignalController::sendMessageToUsers($offer->title, $offer->description, array('notificationType' => 'offer'));
         return redirect('/offerhistory/');
     }
 

@@ -131,6 +131,7 @@ Route::group(['middleware' => ['api']], function () {
     Route::post('/driver/logout', 'AuthController@logoutDriver');
     Route::post('/driver/update/password', 'UserController@changePassword');
     Route::post('/driver/update/state', 'DriverController@updateState');
+    Route::get('/driver/order/finish', 'DriverController@finishOrder');
     Route::post('/driver/update/location', 'DriverController@updateLocation');
     Route::get('/driver/order/respond', 'DriverController@respondToNewOrder');
     Route::post('/order/rate', 'CustomerController@saveReview');

@@ -80,6 +80,7 @@ class CustomerController extends Controller
         $note = $request->note;
         $contact = $request->contact;
         $customerId = $request->customerId;
+        $taxiTypeId = $request->taxiTypeId;
 
         $newOrder = new NewOrder;
         $newOrder->origin = $origin;
@@ -94,6 +95,7 @@ class CustomerController extends Controller
         $newOrder->taxiDriverId = $driverId;
         $newOrder->customerId = $customerId;
         $newOrder->state = "PENDING";
+        $newOrder->taxiTypeId = $taxiTypeId;
         $newOrder->save();
 
         $title = "New Hire Received";

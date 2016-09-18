@@ -109,6 +109,10 @@ class DriverController extends Controller
         $finishedOrder->endTime = $request->endTime;
         $finishedOrder->origin = $request->origin;
         $finishedOrder->destination = $request->destination;
+        $finishedOrder->originLatitude = $request->originLatitude;
+        $finishedOrder->originLongitude = $request->originLongitude;
+        $finishedOrder->destinationLongitude = $request->destinationLongitude;
+        $finishedOrder->destinationLatitude = $request->destinationLatitude;
         $finishedOrder->distance = $request->distance;
         $finishedOrder->contact = $request->contact;
         $finishedOrder->fare = $request->fare;
@@ -119,6 +123,7 @@ class DriverController extends Controller
         $finishedOrder->destinationLatitude = $request->destinationLatitude;
         $finishedOrder->destinationLongitude = $request->destinationLongitude;
         $finishedOrder->customerId = $request->customerId;
+        $finishedOrder->taxiTypeId = TaxiDriver::find($request->taxiDriverId)->Taxi->TaxiType->id;
         $result = $finishedOrder->save();
 
         if (!$result) {
