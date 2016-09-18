@@ -12,7 +12,7 @@ class ReviewController extends Controller
 {
     public function getReviews()
     {
-        $reviews = DB::select('select * from users join (select taxiDriverId,sum(rating) as rating from finished_orders group By(taxiDriverId)) ratings on (users.id = ratings.taxiDriverId)');
+        $reviews = DB::select('select * from users join (select "taxiDriverId",sum(rating) as rating from finished_orders group By("taxiDriverId")) ratings on (users.id = ratings."taxiDriverId");');
         return view('admin.reviews', ['reviews' => $reviews]);
     }
 }
