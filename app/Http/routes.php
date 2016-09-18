@@ -122,7 +122,7 @@ Route::get('/signup/', function () {
     return view('signup');
 });
 Route::post('/signup/', 'AuthController@signUp');
-Route::get('/reviews/', 'ReviewController@getReviews');
+Route::get('/reviews', 'ReviewController@getReviews');
 //});
 
 Route::group(['middleware' => ['api']], function () {
