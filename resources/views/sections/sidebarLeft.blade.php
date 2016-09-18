@@ -56,7 +56,7 @@
 
                 {{--            @if(count(\App\UserLevelPrivilege::where('user_level_id', \Illuminate\Support\Facades\Auth::user()->userLevel->id)->where('privilege_id', 4)->get()))--}}
                 <li class="@yield('main.navigation.reviews')">
-                    <a href="/reviews">php
+                    <a href="/reviews">
                         <i class="fa fa-history"></i> <span>Feedback</span>
                     </a>
                 </li>
