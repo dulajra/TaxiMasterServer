@@ -28,7 +28,7 @@ class AddForeignKeysToTaxiDriversTable extends Migration
     public function down()
     {
         Schema::table('taxi_drivers', function (Blueprint $table) {
-            //
+            $table->dropForeign("taxi_drivers_id_foreign");
         });
     }
 }

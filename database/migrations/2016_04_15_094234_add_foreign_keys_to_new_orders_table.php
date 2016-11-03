@@ -33,6 +33,8 @@ class AddForeignKeysToNewOrdersTable extends Migration
     {
         Schema::table('new_orders', function (Blueprint $table) {
             $table->dropForeign("new_orders_taxitypeid_foreign");
+            $table->dropForeign("new_orders_taxidriverid_foreign");
+            $table->dropForeign("new_orders_taxioperatoruserid_foreign");
         });
     }
 }

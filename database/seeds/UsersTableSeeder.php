@@ -13,7 +13,7 @@ class UsersTableSeeder extends Seeder
     {
         $BASE_URL = "http://dulaj.comuv.com/taximaster/userimages";
         
-        (new \App\User(['username' => 'admin', 'password' => \Illuminate\Support\Facades\Hash::make('admin1234'), 'firstName' => 'Dulaj', 'lastName' => 'Atapattu', 'phone' => '0777146646', 'userLevelId' => 1, 'isActive' => true, 'image' => $BASE_URL . '/dulaj.jpg']))->save();
+        (new \App\User(['username' => 'Admin', 'password' => \Illuminate\Support\Facades\Hash::make('admin1234'), 'phone' => '0777146646', 'userLevelId' => 1, 'isActive' => true, 'image' => $BASE_URL . '/dulaj.jpg']))->save();
 
         (new \App\User(['username' => 'anuradha', 'password' => \Illuminate\Support\Facades\Hash::make('anuradha1234'), 'firstName' => 'Anuradha', 'lastName' => 'Wickramrachchi', 'phone' => '0715944191', 'userLevelId' => 2, 'isActive' => true, 'image' => $BASE_URL . '/anuradha.jpg']))->save();
         (new \App\User(['username' => 'ravidu', 'password' => \Illuminate\Support\Facades\Hash::make('ravidu1234'), 'firstName' => 'Ravidu', 'lastName' => 'Lashan', 'phone' => '0712481879', 'userLevelId' => 2, 'isActive' => true, 'image' => $BASE_URL . '/ravidu.jpg']))->save();

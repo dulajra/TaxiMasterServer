@@ -14,6 +14,7 @@ class CreateTaxiDriversTable extends Migration
     {
         Schema::create('taxi_drivers', function (Blueprint $table) {
             $table->string('licenceNo', 20)->unique();
+            $table->string('email', 50)->unique();
             $table->string('oneSignalUserId', 50)->nullable()->unique();
         });
     }

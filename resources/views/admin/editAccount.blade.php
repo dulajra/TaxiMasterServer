@@ -46,7 +46,8 @@
             <div class="box-header with-border">
                 <h3 class="box-title">Account Details</h3>
             </div>
-            <form id="edit_account_form" action="/accounts/update/{{$user->username}}" method="POST" enctype="multipart/form-data">
+            <form id="edit_account_form" action="/accounts/update/{{$user->username}}" method="POST"
+                  enctype="multipart/form-data">
                 <fieldset>
                     {{csrf_field()}}
                     <div class="box-body">

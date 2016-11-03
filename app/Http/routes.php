@@ -16,7 +16,7 @@
 Route::get('/push', 'TestController@push');
 
 Route::get('/test', function () {
-    return View::make('test');
+    return 'Test';
 });
 
 Route::get('/', function () {
