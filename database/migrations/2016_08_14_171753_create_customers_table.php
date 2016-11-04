@@ -14,6 +14,8 @@ class CreateCustomersTable extends Migration
     {
         Schema::create('customers', function (Blueprint $table) {
             $table->string('oneSignalUserId', 50)->nullable()->unique();
+            $table->string('email', 50)->unique();
+            $table->string('address', 100);
         });
     }
 

@@ -55,6 +55,9 @@ class AuthController extends Controller
             $customer->oneSignalUserId = $request->oneSignalUserId;
             $customer->save();
 
+            $user->email = $customer->email;
+            $user->address = $customer->address;
+
             $response['success'] = 0;
             $response['customer'] = $user;
         } else {
