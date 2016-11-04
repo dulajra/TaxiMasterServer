@@ -11,6 +11,6 @@ class CustomerTableSeeder extends Seeder
      */
     public function run()
     {
-        (new \App\Customer(['id'=>18 ,'oneSignalUserId'=>'957d23b3-8873-4da4-a01c-2e7653bc9086', 'email'=>'kasun@gmail.com', 'address'=>'100, Bandaranayake Rd, Katubedda']))->save();
+        (new \App\Customer(['id'=>18, 'email'=>'kasun@gmail.com', 'address'=>'100, Bandaranayake Rd, Katubedda']))->save();
     }
 }
