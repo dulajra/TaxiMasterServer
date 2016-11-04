@@ -58,6 +58,7 @@ class DriverController extends Controller
 
         $newOrder = NewOrder::find($orderId);
         $receiverId = $newOrder->oneSignalUserId;
+        $data = array();
 
         if($isAccepted === "true"){
             $newOrder->state = "ACCEPTED";
