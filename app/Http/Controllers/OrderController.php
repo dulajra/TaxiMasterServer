@@ -12,16 +12,19 @@ use App\NewOrder;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
+use League\Flysystem\Exception;
 
 class OrderController extends Controller
 {
     public function showOnGoingOrdersPage(Request $request)
     {
-        return "Hello";
         if (Auth::check()) {
             $request['offset'] = 0;
-            $orderList = $this->getOngoingOrders($request);
-            return $orderList;
+            try{
+                $orderList = $this->getOngoingOrders($request);
+            } catch (Exception $e){
+                return $e;
+            }
             return view('admin.ongoingOrders', compact('orderList'));
         } else {
             return view('login');
@@ -30,11 +33,9 @@ class OrderController extends Controller
 
     public function showFinishedOrdersPage(Request $request)
     {
-
         if (Auth::check()) {
             $request['offset'] = 0;
             $orderList = $this->getFinishedOrders($request);
-            return $orderList;
             return view('admin.orderHistory', compact('orderList'));
         } else {
             return view('login');
