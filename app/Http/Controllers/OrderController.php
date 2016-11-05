@@ -21,6 +21,7 @@ class OrderController extends Controller
         if (Auth::check()) {
             $request['offset'] = 0;
             $orderList = $this->getOngoingOrders($request);
+            return $orderList;
             return view('admin.ongoingOrders', compact('orderList'));
         } else {
             return view('login');
