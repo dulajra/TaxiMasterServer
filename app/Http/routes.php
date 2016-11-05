@@ -58,7 +58,7 @@ Route::get('/newhire', function () {
 
 Route::get('/ongoingorders', function () {
     if (Auth::check()) {
-        return View::make('ongoing-orders');
+        return View::make('orderhistory');
     } else {
         return redirect("/login");
     }
