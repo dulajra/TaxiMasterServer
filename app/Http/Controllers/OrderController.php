@@ -3,16 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\FinishedOrder;
-use App\TaxiDriver;
 use App\DriverUpdate;
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
 use App\NewOrder;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
-use Illuminate\Support\Collection;
-use League\Flysystem\Exception;
 
 class OrderController extends Controller
 {
@@ -20,11 +16,7 @@ class OrderController extends Controller
     {
         if (Auth::check()) {
             $request['offset'] = 0;
-            try{
-                $orderList = $this->getOngoingOrders($request);
-            } catch (Exception $e){
-                return $e;
-            }
+            $orderList = $this->getOngoingOrders($request);
             return view('admin.ongoingOrders', compact('orderList'));
         } else {
             return view('login');
@@ -41,43 +33,37 @@ class OrderController extends Controller
             return view('login');
         }
     }
-    
+
     public function getOngoingOrders(Request $request)
     {
-        if(isset($request->now)){
+        if (isset($request->now)) {
             $now = $request->now;
-        }
-        else{
+        } else {
             $now = 1;
         }
-        if(isset($request->pending)){
+        if (isset($request->pending)) {
             $pending = $request->pending;
-        }
-        else{
+        } else {
             $pending = 1;
         }
-        if(isset($request->accepted)){
+        if (isset($request->accepted)) {
             $accepted = $request->accepted;
-        }
-        else{
+        } else {
             $accepted = 1;
         }
-        if(isset($request->rejected)){
+        if (isset($request->rejected)) {
             $rejected = $request->rejected;
-        }
-        else{
+        } else {
             $rejected = 1;
         }
-        if(isset($request->from)){
+        if (isset($request->from)) {
             $from = $request->from;
-        }
-        else{
+        } else {
             $from = Carbon::now()->subWeek()->toDateTimeString();
         }
-        if(isset($request->to)){
+        if (isset($request->to)) {
             $to = $request->to;
-        }
-        else{
+        } else {
             $to = Carbon::now()->toDateTimeString();
         }
 
@@ -88,82 +74,86 @@ class OrderController extends Controller
 
         $orderList = array();
 
-        if ($now == 1) {
-            $nowList = NewOrder::where('state', 'NOW')->where('time', '>', $from)->where('time', '<', $to)->limit(15)->offset(0)->with('user')->get();
+        try{
+            if ($now == 1) {
+                $nowList = NewOrder::where('state', 'NOW')->where('time', '>', $from)->where('time', '<', $to)->limit(15)->offset(0)->with('user')->get();
 
-            foreach ($nowList as $order) {
-                $order['driverName'] = $order['user']['firstName'] . ' ' . $order['user']['lastName'];
-                unset($order['originLatitude']);
-                unset($order['originLongitude']);
-                unset($order['destinationLatitude']);
-                unset($order['destinationLongitude']);
-                unset($order['taxiDriverId']);
-                unset($order['taxiOperatorUserId']);
-                unset($order['oneSignalUserId']);
-                unset($order['note']);
-                unset($order['user']);
+                foreach ($nowList as $order) {
+                    $order['driverName'] = $order['user']['firstName'] . ' ' . $order['user']['lastName'];
+                    unset($order['originLatitude']);
+                    unset($order['originLongitude']);
+                    unset($order['destinationLatitude']);
+                    unset($order['destinationLongitude']);
+                    unset($order['taxiDriverId']);
+                    unset($order['taxiOperatorUserId']);
+                    unset($order['oneSignalUserId']);
+                    unset($order['note']);
+                    unset($order['user']);
+                }
+
+                $nowList = json_decode($nowList);
+                $orderList = array_merge($orderList, $nowList);
             }
 
-            $nowList = json_decode($nowList);
-            $orderList = array_merge($orderList, $nowList);
-        }
+            if ($pending == 1) {
+                $pendingList = NewOrder::where('state', 'PENDING')->where('time', '>', $from)->where('time', '<', $to)->limit(15)->offset(0)->with('user')->get();
 
-        if ($pending == 1) {
-            $pendingList = NewOrder::where('state', 'PENDING')->where('time', '>', $from)->where('time', '<', $to)->limit(15)->offset(0)->with('user')->get();
+                foreach ($pendingList as $order) {
+                    $order['driverName'] = $order['user']['firstName'] . ' ' . $order['user']['lastName'];
+                    unset($order['originLatitude']);
+                    unset($order['originLongitude']);
+                    unset($order['destinationLatitude']);
+                    unset($order['destinationLongitude']);
+                    unset($order['taxiDriverId']);
+                    unset($order['taxiOperatorUserId']);
+                    unset($order['oneSignalUserId']);
+                    unset($order['note']);
+                    unset($order['user']);
+                }
 
-            foreach ($pendingList as $order) {
-                $order['driverName'] = $order['user']['firstName'] . ' ' . $order['user']['lastName'];
-                unset($order['originLatitude']);
-                unset($order['originLongitude']);
-                unset($order['destinationLatitude']);
-                unset($order['destinationLongitude']);
-                unset($order['taxiDriverId']);
-                unset($order['taxiOperatorUserId']);
-                unset($order['oneSignalUserId']);
-                unset($order['note']);
-                unset($order['user']);
+                $pendingList = json_decode($pendingList);
+                $orderList = array_merge($orderList, $pendingList);
             }
+            if ($accepted == 1) {
+                $acceptedList = NewOrder::where('state', 'ACCEPTED')->where('time', '>', $from)->where('time', '<', $to)->limit(15)->offset(0)->with('user')->get();
 
-            $pendingList = json_decode($pendingList);
-            $orderList = array_merge($orderList, $pendingList);
-        }
-        if ($accepted == 1) {
-            $acceptedList = NewOrder::where('state', 'ACCEPTED')->where('time', '>', $from)->where('time', '<', $to)->limit(15)->offset(0)->with('user')->get();
+                foreach ($acceptedList as $order) {
+                    $order['driverName'] = $order['user']['firstName'] . ' ' . $order['user']['lastName'];
+                    unset($order['originLatitude']);
+                    unset($order['originLongitude']);
+                    unset($order['destinationLatitude']);
+                    unset($order['destinationLongitude']);
+                    unset($order['taxiDriverId']);
+                    unset($order['taxiOperatorUserId']);
+                    unset($order['oneSignalUserId']);
+                    unset($order['note']);
+                    unset($order['user']);
+                }
 
-            foreach ($acceptedList as $order) {
-                $order['driverName'] = $order['user']['firstName'] . ' ' . $order['user']['lastName'];
-                unset($order['originLatitude']);
-                unset($order['originLongitude']);
-                unset($order['destinationLatitude']);
-                unset($order['destinationLongitude']);
-                unset($order['taxiDriverId']);
-                unset($order['taxiOperatorUserId']);
-                unset($order['oneSignalUserId']);
-                unset($order['note']);
-                unset($order['user']);
+                $acceptedList = json_decode($acceptedList);
+                $orderList = array_merge($orderList, $acceptedList);
             }
+            if ($rejected == 1) {
+                $rejectedList = NewOrder::where('state', 'REJECTED')->where('time', '>', $from)->where('time', '<', $to)->limit(15)->offset(0)->with('user')->get();
 
-            $acceptedList = json_decode($acceptedList);
-            $orderList = array_merge($orderList, $acceptedList);
-        }
-        if ($rejected == 1) {
-            $rejectedList = NewOrder::where('state', 'REJECTED')->where('time', '>', $from)->where('time', '<', $to)->limit(15)->offset(0)->with('user')->get();
+                foreach ($rejectedList as $order) {
+                    $order['driverName'] = $order['user']['firstName'] . ' ' . $order['user']['lastName'];
+                    unset($order['originLatitude']);
+                    unset($order['originLongitude']);
+                    unset($order['destinationLatitude']);
+                    unset($order['destinationLongitude']);
+                    unset($order['taxiDriverId']);
+                    unset($order['taxiOperatorUserId']);
+                    unset($order['oneSignalUserId']);
+                    unset($order['note']);
+                    unset($order['user']);
+                }
 
-            foreach ($rejectedList as $order) {
-                $order['driverName'] = $order['user']['firstName'] . ' ' . $order['user']['lastName'];
-                unset($order['originLatitude']);
-                unset($order['originLongitude']);
-                unset($order['destinationLatitude']);
-                unset($order['destinationLongitude']);
-                unset($order['taxiDriverId']);
-                unset($order['taxiOperatorUserId']);
-                unset($order['oneSignalUserId']);
-                unset($order['note']);
-                unset($order['user']);
+                $rejectedList = json_decode($rejectedList);
+                $orderList = array_merge($orderList, $rejectedList);
             }
-
-            $rejectedList = json_decode($rejectedList);
-            $orderList = array_merge($orderList, $rejectedList);
+        } catch (\Exception $e){
+            return array("error"=>$e);
         }
 
         $orderList = collect($orderList)->sortByDesc('time');
@@ -172,34 +162,29 @@ class OrderController extends Controller
 
     public function getFinishedOrders(Request $request)
     {
-        if(isset($request->nano)){
+        if (isset($request->nano)) {
             $nano = $request->nano;
-        }
-        else{
+        } else {
             $nano = 1;
         }
-        if(isset($request->car)){
+        if (isset($request->car)) {
             $car = $request->car;
-        }
-        else{
+        } else {
             $car = 1;
         }
-        if(isset($request->van)){
+        if (isset($request->van)) {
             $van = $request->van;
-        }
-        else{
+        } else {
             $van = 1;
         }
-        if(isset($request->from)){
+        if (isset($request->from)) {
             $from = $request->from;
-        }
-        else{
+        } else {
             $from = Carbon::now()->subWeek()->toDateTimeString();
         }
-        if(isset($request->to)){
+        if (isset($request->to)) {
             $to = $request->to;
-        }
-        else{
+        } else {
             $to = Carbon::now()->toDateTimeString();
         }
 
@@ -210,10 +195,12 @@ class OrderController extends Controller
         $orderList = array();
 
         if ($nano == 1) {
-            $nanoList = FinishedOrder::with(['taxi'=>function($query){ $query->where('taxiTypeId', 1);}], 'user')->where('startTime', '>', $from)->where('startTime', '<', $to)->limit(15)->offset(0)->get();
+            $nanoList = FinishedOrder::with(['taxi' => function ($query) {
+                $query->where('taxiTypeId', 1);
+            }], 'user')->where('startTime', '>', $from)->where('startTime', '<', $to)->limit(15)->offset(0)->get();
 
-            for ($i=0; $i<count($nanoList); $i++) {
-                if($nanoList[$i]['taxi']!=null){
+            for ($i = 0; $i < count($nanoList); $i++) {
+                if ($nanoList[$i]['taxi'] != null) {
                     $order = $nanoList[$i];
                     $order['driverName'] = $order['user']['firstName'] . ' ' . $order['user']['lastName'];
                     $order['taxiType'] = 'nano';
@@ -232,10 +219,12 @@ class OrderController extends Controller
         }
 
         if ($car == 1) {
-            $carList = FinishedOrder::with(['taxi'=>function($query){ $query->where('taxiTypeId', 2);}], 'user')->where('startTime', '>', $from)->where('startTime', '<', $to)->limit(15)->offset(0)->get();
+            $carList = FinishedOrder::with(['taxi' => function ($query) {
+                $query->where('taxiTypeId', 2);
+            }], 'user')->where('startTime', '>', $from)->where('startTime', '<', $to)->limit(15)->offset(0)->get();
 
-            for ($i=0; $i<count($carList); $i++) {
-                if($carList[$i]['taxi']!=null){
+            for ($i = 0; $i < count($carList); $i++) {
+                if ($carList[$i]['taxi'] != null) {
                     $order = $carList[$i];
                     $order['driverName'] = $order['user']['firstName'] . ' ' . $order['user']['lastName'];
                     $order['taxiType'] = 'car';
@@ -254,10 +243,12 @@ class OrderController extends Controller
         }
 
         if ($van == 1) {
-            $vanList = FinishedOrder::with(['taxi'=>function($query){ $query->where('taxiTypeId', 3);}], 'user')->where('startTime', '>', $from)->where('startTime', '<', $to)->limit(15)->offset(0)->get();
+            $vanList = FinishedOrder::with(['taxi' => function ($query) {
+                $query->where('taxiTypeId', 3);
+            }], 'user')->where('startTime', '>', $from)->where('startTime', '<', $to)->limit(15)->offset(0)->get();
 
-            for ($i=0; $i<count($vanList); $i++) {
-                if($vanList[$i]['taxi']!=null){
+            for ($i = 0; $i < count($vanList); $i++) {
+                if ($vanList[$i]['taxi'] != null) {
                     $order = $vanList[$i];
                     $order['driverName'] = $order['user']['firstName'] . ' ' . $order['user']['lastName'];
                     $order['taxiType'] = 'van';
@@ -279,20 +270,22 @@ class OrderController extends Controller
         return $orderList;
     }
 
-    public function showNewOrderPage(){
-        $data = array('status'=>null);
+    public function showNewOrderPage()
+    {
+        $data = array('status' => null);
         $idNameList = array();
         $driverList = DriverUpdate::with('user')->where('stateId', 2)->get();
-        foreach ($driverList as $driver){
-            array_push($idNameList, array('id'=>$driver->id, 'name'=>$driver->user->fullName()));
+        foreach ($driverList as $driver) {
+            array_push($idNameList, array('id' => $driver->id, 'name' => $driver->user->fullName()));
         }
         $data['idNameList'] = $idNameList;
         return view('operator.newOrder', compact('data'));
     }
-    
-    public function getOrderState(Request $request){
+
+    public function getOrderState(Request $request)
+    {
         return NewOrder::where('id', $request->id)->first(['state']);
     }
-    
+
 }
 
