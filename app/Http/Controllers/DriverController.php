@@ -78,7 +78,7 @@ class DriverController extends Controller
             $data['id'] = $orderId;
 
             $response = OneSignalController::sendMessageToCustomer($title, $message, $data, $receiverId);
-
+            return $response;
             if (!isset($response['errors'])) {
                 return array('success' => true);
             } else {
