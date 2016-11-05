@@ -23,7 +23,7 @@ class DriverController extends Controller
 
         if($stateId==3){
             $orderId = $request->orderId;
-            $receiverId = NewOrder::find($orderId)->oneSignalUserId;
+            $receiverId =  NewOrder::where('id',$orderId)->with('customer.customer')->first()->customer->customer->oneSignalUserId;
             $response = OneSignalController::sendMessageToCustomer("Hire update", "Driver started to come", array('notificationType' => 'now', 'id' => $orderId), $receiverId);
 
             $newOrder = NewOrder::find($orderId);
@@ -56,8 +56,8 @@ class DriverController extends Controller
         $orderId = $request->orderId;
         $isAccepted = $request->isAccepted;
 
-        $newOrder = NewOrder::find($orderId);
-        $receiverId = $newOrder->customer->oneSignalUserId;
+        $newOrder = NewOrder::where('id',$orderId)->with('customer.customer')->first();
+        $receiverId = $newOrder->customer->customer->oneSignalUserId;
         $data = array();
 
         if($isAccepted === "true"){
@@ -81,11 +81,11 @@ class DriverController extends Controller
             if (!isset($response['errors'])) {
                 return array('success' => true);
             } else {
-                return array('success' => false);
+                return array('success' => false, 'errors'=>$response['errors']);
             }
         }
         else{
-            return array('success' => true);
+            return array('success' => true, 'error'=>"Receiver id is null");
         }
 
     }
@@ -130,8 +130,8 @@ class DriverController extends Controller
             return array('success' => false);
         }
 
-        $newOrder = NewOrder::find($id);
-        $receiverId = $newOrder->oneSignalUserId;
+        $newOrder =  NewOrder::where('id',$id)->with('customer.customer')->first();
+        $receiverId = $newOrder->customer->customer->oneSignalUserId;
         $newOrder->delete();
 
         if($receiverId!=null){
