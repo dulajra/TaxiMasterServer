@@ -57,7 +57,7 @@ class DriverController extends Controller
         $isAccepted = $request->isAccepted;
 
         $newOrder = NewOrder::find($orderId);
-        $receiverId = $newOrder->oneSignalUserId;
+        $receiverId = $newOrder->customer->oneSignalUserId;
         $data = array();
 
         if($isAccepted === "true"){
@@ -78,7 +78,6 @@ class DriverController extends Controller
             $data['id'] = $orderId;
 
             $response = OneSignalController::sendMessageToCustomer($title, $message, $data, $receiverId);
-            return $response;
             if (!isset($response['errors'])) {
                 return array('success' => true);
             } else {
