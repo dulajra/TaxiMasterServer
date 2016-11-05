@@ -17,7 +17,7 @@ class OrderController extends Controller
 {
     public function showOnGoingOrdersPage(Request $request)
     {
-
+        return "Hello";
         if (Auth::check()) {
             $request['offset'] = 0;
             $orderList = $this->getOngoingOrders($request);
@@ -34,6 +34,7 @@ class OrderController extends Controller
         if (Auth::check()) {
             $request['offset'] = 0;
             $orderList = $this->getFinishedOrders($request);
+            return $orderList;
             return view('admin.orderHistory', compact('orderList'));
         } else {
             return view('login');
