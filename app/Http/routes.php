@@ -58,7 +58,7 @@ Route::get('/newhire', function () {
 
 Route::get('/ongoingorders', function () {
     if (Auth::check()) {
-        return View::make('orderhistory');
+        return View::make('ongoing-orders');
     } else {
         return redirect("/login");
     }
@@ -110,7 +110,7 @@ Route::get('/taxis/edit/{taxi}', 'TaxiController@showEditTaxisPage');
 Route::post('/taxis/update/{taxi}', 'TaxiController@updateTaxi');
 Route::post('/taxis/new', 'TaxiController@createNewTaxi');
 
-Route::get('/ongoing-orders', 'OrderController@showOnGoingOrdersPage');
+Route::get('/ongoing-orders', 'OrderController@showFinishedOrdersPage');
 Route::get('/ongoing-orders/get', 'OrderController@getOngoingOrders');
 Route::get('/finished-orders', 'OrderController@showFinishedOrdersPage');
 Route::get('/finished-orders/get', 'OrderController@getFinishedOrders');
