@@ -1,6 +1,10 @@
 # TAXI Master
 
-TAXI Master is a revolutionary solution for the provision of a better taxi service with the utilization of modern information technology approaches
+TAXI Master is a revolutionary solution for the provision of a better taxi service with the utilization of modern information technology approaches. Taxi Master is a system with 3 main components.
+
+* [Taxi Master Driver Application](https://github.com/dulajra/TaxiMasterDriver)
+* [Taxi Master Customer Application](https://github.com/dulajra/TaxiMasterCustomer)
+* [Taxi Master Server and Web Application](https://github.com/dulajra/TaxiMasterServer)
 
 ## Installation
 
